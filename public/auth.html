@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Socket.IO chat</title>
+    <title>Авторизація</title>
     <style>
         body {
             margin: 0;
@@ -26,8 +26,7 @@
             backdrop-filter: blur(10px);
         }
 
-        #input,
-        #nickname {
+        #email, #password {
             border: none;
             padding: 0 1rem;
             flex-grow: 1;
@@ -35,13 +34,8 @@
             margin: 0.25rem;
         }
 
-        #input:focus,
-        #nickname:focus {
+        #email:focus, #password:focus {
             outline: none;
-        }
-
-        #nickname {
-            flex-grow: initial;
         }
 
         #form>button {
@@ -53,33 +47,20 @@
             outline: none;
             color: #fff;
         }
-
-        #messages {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        #messages>li {
-            padding: 0.5rem 1rem;
-        }
-
-        /* #messages>li:nth-child(odd) {
-            background: #efefef;
-        } */
     </style>
+
+    <!-- <link href="css/auth.css" rel="stylesheet"> -->
 </head>
 
-<body>
-    <ul id="messages"></ul>
+<body class="text-center">
+    
     <form id="form" action="">
-        <input id="nickname" placeholder="Enter your nickname" autocomplete="off" />
-        <input id="input" placeholder="Enter your message" autocomplete="off" />
-        <button>Send</button>
+        <input id="email" type="email" placeholder="Enter your email" />
+        <input id="password" type="password" placeholder="Enter your password" autocomplete="off" />
+        <button id="btnAuth">Send</button>
     </form>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script type="module" src="js/index.js"></script>
+    
+    <script type="module" src="js/auth.js"></script>
 </body>
 
 </html>
