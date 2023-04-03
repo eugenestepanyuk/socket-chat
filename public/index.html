@@ -23,7 +23,7 @@
             backdrop-filter: blur(10px);
         }
 
-        #input {
+        #input, #nickname {
             border: none;
             padding: 0 1rem;
             flex-grow: 1;
@@ -31,8 +31,12 @@
             margin: 0.25rem;
         }
 
-        #input:focus {
+        #input:focus, #nickname:focus {
             outline: none;
+        }
+
+        #nickname {
+            flex-grow: initial;
         }
 
         #form>button {
@@ -55,16 +59,18 @@
             padding: 0.5rem 1rem;
         }
 
-        #messages>li:nth-child(odd) {
+        /* #messages>li:nth-child(odd) {
             background: #efefef;
-        }
+        } */
     </style>
 </head>
 
 <body>
     <ul id="messages"></ul>
     <form id="form" action="">
-        <input id="input" autocomplete="off" /><button>Send</button>
+        <input id="nickname" placeholder="Enter your nickname" autocomplete="off" />
+        <input id="input" placeholder="Enter your message" autocomplete="off" />
+        <button>Send</button>
     </form>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -74,18 +80,19 @@
         var messages = document.getElementById('messages');
         var form = document.getElementById('form');
         var input = document.getElementById('input');
+        var nickname = document.getElementById('nickname');
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             if (input.value) {
-                socket.emit('chat message', input.value);
+                socket.emit('chat message', { nickname: nickname.value, message: input.value });
                 input.value = '';
             }
         });
 
-        socket.on('chat message', function (msg) {
+        socket.on('chat message', function (data) {
             var item = document.createElement('li');
-            item.textContent = msg;
+            item.textContent = data.nickname + ': ' + data.message;
             messages.appendChild(item);
             window.scrollTo(0, document.body.scrollHeight);
         });
